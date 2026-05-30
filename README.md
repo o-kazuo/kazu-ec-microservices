@@ -1,4 +1,3 @@
-cat > ~/kazu-ec-microservices/README.md << 'README'
 # kazu-ec-microservices
 
 ECサイト型マイクロサービス基盤 on AWS
@@ -81,4 +80,3 @@ kazu-ec-microservices/
 
 - AWS CLF（856点）
 - AWS SAA（832点）
-README
