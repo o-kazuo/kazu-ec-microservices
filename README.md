@@ -80,3 +80,4 @@ kazu-ec-microservices/
 
 - AWS CLF（856点）
 - AWS SAA（832点）
+# test
