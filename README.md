@@ -9,7 +9,7 @@ ECサイト型マイクロサービス基盤 on AWS
 
 ## アーキテクチャ
 
-\`\`\`
+```
 フロントエンド（Streamlit）
     ↓
 API Gateway（同期通信）
@@ -21,7 +21,7 @@ SQS（非同期通信）
 通知サービス（Lambda）
     ↓
 SNS → Slack / メール
-\`\`\`
+```
 
 ## マイクロサービス構成
 
@@ -46,7 +46,7 @@ SNS → Slack / メール
 
 ## ディレクトリ構成
 
-\`\`\`
+```
 kazu-ec-microservices/
 ├── terraform/
 │   ├── modules/
@@ -74,7 +74,7 @@ kazu-ec-microservices/
 │       ├── order-service.yml
 │       └── notification-service.yml
 └── README.md
-\`\`\`
+```
 
 ## 保有資格
 
