@@ -16,6 +16,7 @@ resource "aws_ecs_cluster" "main" {
     Name        = "${var.project_name}-${var.environment}-cluster"
     Environment = var.environment
     Project     = var.project_name
+    ManagedBy   = "terraform"
   }
 }
 
@@ -43,6 +44,7 @@ resource "aws_iam_role" "ecs_task_execution" {
   tags = {
     Environment = var.environment
     Project     = var.project_name
+    ManagedBy   = "terraform"
   }
 }
 
@@ -76,6 +78,7 @@ resource "aws_iam_role" "ecs_task" {
   tags = {
     Environment = var.environment
     Project     = var.project_name
+    ManagedBy   = "terraform"
   }
 }
 
@@ -97,5 +100,6 @@ resource "aws_security_group" "ecs" {
     Name        = "${var.project_name}-${var.environment}-ecs-sg"
     Environment = var.environment
     Project     = var.project_name
+    ManagedBy   = "terraform"
   }
 }
