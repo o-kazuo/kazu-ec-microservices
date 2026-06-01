@@ -8,6 +8,7 @@ resource "aws_vpc" "main" {
     Name        = "${var.project_name}-${var.environment}-vpc"
     Environment = var.environment
     Project     = var.project_name
+    ManagedBy   = "terraform"
   }
 }
 
@@ -24,6 +25,7 @@ resource "aws_subnet" "public" {
     Name        = "${var.project_name}-${var.environment}-public-${count.index + 1}"
     Environment = var.environment
     Project     = var.project_name
+    ManagedBy   = "terraform"
   }
 }
 
@@ -38,6 +40,7 @@ resource "aws_subnet" "private" {
     Name        = "${var.project_name}-${var.environment}-private-${count.index + 1}"
     Environment = var.environment
     Project     = var.project_name
+    ManagedBy   = "terraform"
   }
 }
 
@@ -49,6 +52,7 @@ resource "aws_internet_gateway" "main" {
     Name        = "${var.project_name}-${var.environment}-igw"
     Environment = var.environment
     Project     = var.project_name
+    ManagedBy   = "terraform"
   }
 }
 
@@ -65,6 +69,7 @@ resource "aws_route_table" "public" {
     Name        = "${var.project_name}-${var.environment}-public-rt"
     Environment = var.environment
     Project     = var.project_name
+    ManagedBy   = "terraform"
   }
 }
 
