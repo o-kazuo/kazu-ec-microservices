@@ -23,3 +23,19 @@ module "vpc" {
   private_subnet_cidrs = ["10.0.11.0/24", "10.0.12.0/24"]
   availability_zones   = ["ap-northeast-1a", "ap-northeast-1c"]
 }
+
+module "ecs" {
+  source = "../../modules/ecs"
+
+  project_name = var.project_name
+  environment  = var.environment
+  vpc_id       = module.vpc.vpc_id
+}
+
+module "ecr" {
+  source = "../../modules/ecr"
+
+  project_name = var.project_name
+  environment  = var.environment
+}
+
