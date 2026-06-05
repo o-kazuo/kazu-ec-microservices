@@ -63,3 +63,12 @@ module "sqs" {
   environment  = var.environment
 }
 
+module "api_gateway" {
+  source = "../../modules/api_gateway"
+
+  project_name       = var.project_name
+  environment        = var.environment
+  vpc_id             = module.vpc.vpc_id
+  private_subnet_ids = module.vpc.private_subnet_ids
+}
+
