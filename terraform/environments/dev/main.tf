@@ -49,3 +49,10 @@ module "rds" {
   ecs_security_group_id = module.ecs.security_group_id
 }
 
+module "dynamodb" {
+  source = "../../modules/dynamodb"
+
+  project_name = var.project_name
+  environment  = var.environment
+}
+
