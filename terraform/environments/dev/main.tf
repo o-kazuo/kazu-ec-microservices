@@ -34,6 +34,8 @@ module "ecs" {
   db_secret_arn         = module.rds.secret_arn
   xray_policy_arn       = module.xray.xray_policy_arn
   private_subnet_ids    = module.vpc.private_subnet_ids
+  ecr_product_image_uri = module.ecr.repository_urls["product"]
+  ecr_order_image_uri   = module.ecr.repository_urls["order"]
 }
 
 module "ecr" {

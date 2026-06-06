@@ -33,3 +33,13 @@ variable "private_subnet_ids" {
   type        = list(string)
 }
 
+variable "ecr_product_image_uri" {
+  description = "product-serviceのECRイメージURI"
+  type        = string
+}
+
+variable "ecr_order_image_uri" {
+  description = "order-serviceのECRイメージURI"
+  type        = string
+}
+
