@@ -72,3 +72,13 @@ module "api_gateway" {
   private_subnet_ids = module.vpc.private_subnet_ids
 }
 
+module "lambda" {
+  source = "../../modules/lambda"
+
+  project_name       = var.project_name
+  environment        = var.environment
+  sqs_queue_arn      = module.sqs.queue_arn
+  dynamodb_table_arn = module.dynamodb.notification_history_table_arn
+  ecr_image_uri      = "${module.ecr.repository_urls["notification"]}:latest"
+}
+
