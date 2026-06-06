@@ -82,3 +82,11 @@ module "lambda" {
   ecr_image_uri      = "${module.ecr.repository_urls["notification"]}:latest"
 }
 
+module "cloudwatch" {
+  source = "../../modules/cloudwatch"
+
+  project_name      = var.project_name
+  environment       = var.environment
+  slack_webhook_url = var.slack_webhook_url
+}
+
