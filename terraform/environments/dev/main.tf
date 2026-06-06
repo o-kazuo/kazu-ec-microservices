@@ -90,3 +90,10 @@ module "cloudwatch" {
   slack_webhook_url = var.slack_webhook_url
 }
 
+module "waf" {
+  source = "../../modules/waf"
+
+  project_name = var.project_name
+  environment  = var.environment
+}
+
