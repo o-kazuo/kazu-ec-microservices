@@ -69,3 +69,10 @@ resource "aws_cloudwatch_metric_alarm" "ecs_cpu" {
   }
 }
 
+# SNS → Slack転送設定
+resource "aws_sns_topic_subscription" "slack" {
+  topic_arn = aws_sns_topic.alarm.arn
+  protocol  = "https"
+  endpoint  = var.slack_webhook_url
+}
+
