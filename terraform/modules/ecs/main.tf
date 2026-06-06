@@ -103,3 +103,48 @@ resource "aws_security_group" "ecs" {
     ManagedBy   = "terraform"
   }
 }
+
+# SQSアクセスポリシー(SQSにメッセージを送る権限)
+resource "aws_iam_role_policy" "ecs_sqs" {
+  name = "${var.project_name}-${var.environment}-ecs-sqs-policy"
+  role = aws_iam_role.ecs_task.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "sqs:SendMessage",
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage"
+        ]
+        Resource = var.sqs_queue_arn
+      }
+    ]
+  })
+}
+
+# SecretsManagerアクセスポリシー(SecretsManagerからパスワードを取得する権限)
+resource "aws_iam_role_policy" "ecs_secrets" {
+  name = "${var.project_name}-${var.environment}-ecs-secrets-policy"
+  role = aws_iam_role.ecs_task.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = ["secretsmanager:GetSecretValue"]
+        Resource = var.db_secret_arn
+      }
+    ]
+  })
+}
+
+# X-Rayアクセスポリシー(X-Rayにトレースを送る権限)
+resource "aws_iam_role_policy_attachment" "ecs_xray" {
+  role       = aws_iam_role.ecs_task.name
+  policy_arn = var.xray_policy_arn
+}
+

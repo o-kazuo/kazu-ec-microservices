@@ -30,6 +30,9 @@ module "ecs" {
   project_name = var.project_name
   environment  = var.environment
   vpc_id       = module.vpc.vpc_id
+  sqs_queue_arn         = module.sqs.queue_arn
+  db_secret_arn         = module.rds.secret_arn
+  xray_policy_arn       = module.xray.xray_policy_arn
 }
 
 module "ecr" {
