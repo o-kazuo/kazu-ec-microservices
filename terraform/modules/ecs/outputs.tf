@@ -22,3 +22,24 @@ output "security_group_id" {
   description = "ECSセキュリティグループID"
   value       = aws_security_group.ecs.id
 }
+
+output "alb_arn" {
+  description = "ALBのARN"
+  value       = aws_lb.main.arn
+}
+
+output "alb_dns_name" {
+  description = "ALBのDNS名"
+  value       = aws_lb.main.dns_name
+}
+
+output "product_target_group_arn" {
+  description = "product-serviceのターゲットグループARN"
+  value       = aws_lb_target_group.product.arn
+}
+
+output "order_target_group_arn" {
+  description = "order-serviceのターゲットグループARN"
+  value       = aws_lb_target_group.order.arn
+}
+

@@ -28,3 +28,8 @@ variable "xray_policy_arn" {
   type        = string
 }
 
+variable "private_subnet_ids" {
+  description = "プライベートサブネットIDリスト"
+  type        = list(string)
+}
+

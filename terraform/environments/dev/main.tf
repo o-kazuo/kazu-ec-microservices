@@ -33,6 +33,7 @@ module "ecs" {
   sqs_queue_arn         = module.sqs.queue_arn
   db_secret_arn         = module.rds.secret_arn
   xray_policy_arn       = module.xray.xray_policy_arn
+  private_subnet_ids    = module.vpc.private_subnet_ids
 }
 
 module "ecr" {

@@ -148,3 +148,76 @@ resource "aws_iam_role_policy_attachment" "ecs_xray" {
   policy_arn = var.xray_policy_arn
 }
 
+# ALB(ECS用のALBの作成)
+resource "aws_lb" "main" {
+  name               = "${var.project_name}-${var.environment}-alb"
+  internal           = true
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.ecs.id]
+  subnets            = var.private_subnet_ids
+
+  tags = {
+    Name        = "${var.project_name}-${var.environment}-alb"
+    Environment = var.environment
+    Project     = var.project_name
+    ManagedBy   = "terraform"
+  }
+}
+
+# ターゲットグループ（product-service）
+resource "aws_lb_target_group" "product" {
+  name        = "${var.project_name}-${var.environment}-product-tg"
+  port        = 8000
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = "ip"
+
+  health_check {
+    path                = "/health"
+    healthy_threshold   = 2
+    unhealthy_threshold = 3
+    interval            = 30
+  }
+
+  tags = {
+    Name        = "${var.project_name}-${var.environment}-product-tg"
+    Environment = var.environment
+    Project     = var.project_name
+    ManagedBy   = "terraform"
+  }
+}
+
+# ターゲットグループ（order-service）
+resource "aws_lb_target_group" "order" {
+  name        = "${var.project_name}-${var.environment}-order-tg"
+  port        = 8000
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = "ip"
+
+  health_check {
+    path                = "/health"
+    healthy_threshold   = 2
+    unhealthy_threshold = 3
+    interval            = 30
+  }
+
+  tags = {
+    Name        = "${var.project_name}-${var.environment}-order-tg"
+    Environment = var.environment
+    Project     = var.project_name
+    ManagedBy   = "terraform"
+  }
+}
+
+# ALBリスナー
+resource "aws_lb_listener" "main" {
+  load_balancer_arn = aws_lb.main.arn
+  port              = 80
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.product.arn
+  }
+}
