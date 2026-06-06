@@ -105,3 +105,10 @@ module "codedeploy" {
   ecs_cluster_name = module.ecs.cluster_name
 }
 
+module "xray" {
+  source = "../../modules/xray"
+
+  project_name = var.project_name
+  environment  = var.environment
+}
+
