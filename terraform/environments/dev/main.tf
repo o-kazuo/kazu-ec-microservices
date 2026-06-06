@@ -97,3 +97,11 @@ module "waf" {
   environment  = var.environment
 }
 
+module "codedeploy" {
+  source = "../../modules/codedeploy"
+
+  project_name     = var.project_name
+  environment      = var.environment
+  ecs_cluster_name = module.ecs.cluster_name
+}
+
