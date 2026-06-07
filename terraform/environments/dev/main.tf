@@ -118,3 +118,9 @@ module "xray" {
   environment  = var.environment
 }
 
+# WAF → API Gateway紐付け(WAFをAPI Gatewayにassociationする)
+resource "aws_wafv2_web_acl_association" "main" {
+  resource_arn = module.api_gateway.api_arn
+  web_acl_arn  = module.waf.web_acl_arn
+}
+
