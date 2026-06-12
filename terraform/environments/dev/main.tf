@@ -124,3 +124,12 @@ resource "aws_wafv2_web_acl_association" "main" {
   web_acl_arn  = module.waf.web_acl_arn
 }
 
+module "oidc" {
+  source = "../../modules/oidc"
+
+  project_name = var.project_name
+  environment  = var.environment
+  github_org   = "o-kazuo"
+  github_repo  = "kazu-ec-microservices"
+}
+
