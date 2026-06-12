@@ -17,3 +17,9 @@ variable "dynamodb_table_arn" {
   description = "DynamoDBテーブルのARN"
   type        = string
 }
+
+variable "ecr_image_uri" {
+  description = "notificationサービスのECRイメージURI"
+  type        = string
+}
+

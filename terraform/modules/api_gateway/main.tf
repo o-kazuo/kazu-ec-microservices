@@ -20,7 +20,7 @@ resource "aws_apigatewayv2_api" "main" {
 # VPC Link
 resource "aws_apigatewayv2_vpc_link" "main" {
   name               = "${var.project_name}-${var.environment}-vpc-link"
-  security_group_ids = [var.vpc_id]
+  security_group_ids = [var.ecs_security_group_id]
   subnet_ids         = var.private_subnet_ids
 
   tags = {

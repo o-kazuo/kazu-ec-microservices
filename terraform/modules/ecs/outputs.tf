@@ -43,3 +43,8 @@ output "order_target_group_arn" {
   value       = aws_lb_target_group.order.arn
 }
 
+output "alb_listener_arn" {
+  description = "ALBリスナーのARN"
+  value       = aws_lb_listener.main.arn
+}
+

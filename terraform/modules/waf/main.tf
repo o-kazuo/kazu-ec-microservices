@@ -47,7 +47,7 @@ resource "aws_wafv2_web_acl" "main" {
       }
     }
 
-　　# WAFのログをCloudWatchに送る設定
+# WAFのログをCloudWatchに送る設定
     visibility_config {
       cloudwatch_metrics_enabled = true
       metric_name                = "CommonRuleSet"

@@ -9,8 +9,13 @@ variable "environment" {
 }
 
 # これはVPC LINKのために必要
-variable "vpc_id" {
-  description = "VPC ID"
+variable "ecs_security_group_id" {
+  description = "ECSセキュリティグループID"
   type        = string
+}
+
+variable "private_subnet_ids" {
+  description = "プライベートサブネットIDリスト"
+  type        = list(string)
 }
 

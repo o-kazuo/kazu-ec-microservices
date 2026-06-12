@@ -20,5 +20,6 @@ variable "slack_webhook_url" {
   description = "SlackのWebhook URL"
   type        = string
   sensitive   = true
+  default     = "https://hooks.slack.com/services/dummy"
 }
 

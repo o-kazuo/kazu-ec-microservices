@@ -12,3 +12,19 @@ variable "ecs_cluster_name" {
   description = "ECSクラスター名"
   type        = string
 }
+
+variable "alb_listener_arn" {
+  description = "ALBリスナーのARN"
+  type        = string
+}
+
+variable "product_target_group_arn" {
+  description = "product-serviceのターゲットグループARN"
+  type        = string
+}
+
+variable "order_target_group_arn" {
+  description = "order-serviceのターゲットグループARN"
+  type        = string
+}
+

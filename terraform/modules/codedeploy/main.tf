@@ -53,13 +53,27 @@ resource "aws_codedeploy_deployment_group" "product" {
     service_name = "${var.project_name}-${var.environment}-product-service"
   }
 
-　# Blue/Greenデプロイの設定
+# Blue/Greenデプロイの設定
   deployment_style {
     deployment_option = "WITH_TRAFFIC_CONTROL"
     deployment_type   = "BLUE_GREEN"
   }
 
-　# Greenが起動したら自動で切り替える(手動承認不要)
+  load_balancer_info {
+    target_group_pair_info {
+      prod_traffic_route {
+        listener_arns = [var.alb_listener_arn]
+      }
+      target_group {
+        name = split("/", var.product_target_group_arn)[1]
+      }
+      target_group {
+        name = split("/", var.product_target_group_arn)[1]
+      }
+    }
+  }
+
+# Greenが起動したら自動で切り替える(手動承認不要)
   blue_green_deployment_config {
     deployment_ready_option {
       action_on_timeout = "CONTINUE_DEPLOYMENT"
@@ -71,7 +85,7 @@ resource "aws_codedeploy_deployment_group" "product" {
     }
   }
 
-　# デプロイ失敗時に自動でロールバック
+# デプロイ失敗時に自動でロールバック
   auto_rollback_configuration {
     enabled = true
     events  = ["DEPLOYMENT_FAILURE"]
@@ -100,6 +114,20 @@ resource "aws_codedeploy_deployment_group" "order" {
   deployment_style {
     deployment_option = "WITH_TRAFFIC_CONTROL"
     deployment_type   = "BLUE_GREEN"
+  }
+
+  load_balancer_info {
+    target_group_pair_info {
+      prod_traffic_route {
+        listener_arns = [var.alb_listener_arn]
+      }
+      target_group {
+        name = split("/", var.order_target_group_arn)[1]
+      }
+      target_group {
+        name = split("/", var.order_target_group_arn)[1]
+      }
+    }
   }
 
   blue_green_deployment_config {

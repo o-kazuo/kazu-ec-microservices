@@ -76,17 +76,18 @@ module "api_gateway" {
   environment        = var.environment
   vpc_id             = module.vpc.vpc_id
   private_subnet_ids = module.vpc.private_subnet_ids
+  ecs_security_group_id = module.ecs.security_group_id
 }
 
-module "lambda" {
-  source = "../../modules/lambda"
-
-  project_name       = var.project_name
-  environment        = var.environment
-  sqs_queue_arn      = module.sqs.queue_arn
-  dynamodb_table_arn = module.dynamodb.notification_history_table_arn
-  ecr_image_uri      = "${module.ecr.repository_urls["notification"]}:latest"
-}
+# module "lambda" {
+#   source = "../../modules/lambda"
+#
+#   project_name       = var.project_name
+#   environment        = var.environment
+#   sqs_queue_arn      = module.sqs.queue_arn
+#   dynamodb_table_arn = module.dynamodb.notification_history_table_arn
+#   ecr_image_uri      = "${module.ecr.repository_urls["notification"]}:latest"
+# }
 
 module "cloudwatch" {
   source = "../../modules/cloudwatch"
@@ -109,6 +110,9 @@ module "codedeploy" {
   project_name     = var.project_name
   environment      = var.environment
   ecs_cluster_name = module.ecs.cluster_name
+  alb_listener_arn         = module.ecs.alb_listener_arn
+  product_target_group_arn = module.ecs.product_target_group_arn
+  order_target_group_arn   = module.ecs.order_target_group_arn
 }
 
 module "xray" {
@@ -120,7 +124,7 @@ module "xray" {
 
 # WAF → API Gateway紐付け(WAFをAPI Gatewayにassociationする)
 resource "aws_wafv2_web_acl_association" "main" {
-  resource_arn = module.api_gateway.api_arn
+  resource_arn = module.api_gateway.stage_arn
   web_acl_arn  = module.waf.web_acl_arn
 }
 
