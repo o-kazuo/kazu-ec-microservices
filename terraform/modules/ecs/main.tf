@@ -210,6 +210,52 @@ resource "aws_lb_target_group" "order" {
   }
 }
 
+# Blue/Green用ターゲットグループ（product）
+resource "aws_lb_target_group" "product_green" {
+  name        = "${var.project_name}-${var.environment}-product-tg-g"
+  port        = 8000
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = "ip"
+
+  health_check {
+    path                = "/health"
+    healthy_threshold   = 2
+    unhealthy_threshold = 3
+    interval            = 30
+  }
+
+  tags = {
+    Name        = "${var.project_name}-${var.environment}-product-tg-g"
+    Environment = var.environment
+    Project     = var.project_name
+    ManagedBy   = "terraform"
+  }
+}
+
+# Blue/Green用ターゲットグループ（order）
+resource "aws_lb_target_group" "order_green" {
+  name        = "${var.project_name}-${var.environment}-order-tg-g"
+  port        = 8000
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = "ip"
+
+  health_check {
+    path                = "/health"
+    healthy_threshold   = 2
+    unhealthy_threshold = 3
+    interval            = 30
+  }
+
+  tags = {
+    Name        = "${var.project_name}-${var.environment}-order-tg-g"
+    Environment = var.environment
+    Project     = var.project_name
+    ManagedBy   = "terraform"
+  }
+}
+
 # ALBリスナー
 resource "aws_lb_listener" "main" {
   load_balancer_arn = aws_lb.main.arn
@@ -219,6 +265,23 @@ resource "aws_lb_listener" "main" {
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.product.arn
+  }
+}
+
+# orderサービス用リスナールール
+resource "aws_lb_listener_rule" "order" {
+  listener_arn = aws_lb_listener.main.arn
+  priority     = 100
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.order.arn
+  }
+
+  condition {
+    path_pattern {
+      values = ["/orders*"]
+    }
   }
 }
 

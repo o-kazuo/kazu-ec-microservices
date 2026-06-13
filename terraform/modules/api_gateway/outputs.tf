@@ -23,8 +23,3 @@ output "stage_arn" {
   value       = "arn:aws:apigateway:ap-northeast-1::/apis/${aws_apigatewayv2_api.main.id}/stages/${var.environment}"
 }
 
-output "api_endpoint" {
-  description = "API GatewayのエンドポイントURL"
-  value       = aws_apigatewayv2_stage.main.invoke_url
-}
-

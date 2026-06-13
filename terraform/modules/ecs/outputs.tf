@@ -43,6 +43,16 @@ output "order_target_group_arn" {
   value       = aws_lb_target_group.order.arn
 }
 
+output "product_target_group_green_arn" {
+  description = "product-serviceのGreenターゲットグループARN"
+  value       = aws_lb_target_group.product_green.arn
+}
+
+output "order_target_group_green_arn" {
+  description = "order-serviceのGreenターゲットグループARN"
+  value       = aws_lb_target_group.order_green.arn
+}
+
 output "alb_listener_arn" {
   description = "ALBリスナーのARN"
   value       = aws_lb_listener.main.arn

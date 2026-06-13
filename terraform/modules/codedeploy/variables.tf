@@ -28,3 +28,13 @@ variable "order_target_group_arn" {
   type        = string
 }
 
+variable "product_target_group_green_arn" {
+  description = "product-serviceのGreenターゲットグループARN"
+  type        = string
+}
+
+variable "order_target_group_green_arn" {
+  description = "order-serviceのGreenターゲットグループARN"
+  type        = string
+}
+

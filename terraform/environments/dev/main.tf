@@ -74,7 +74,6 @@ module "api_gateway" {
 
   project_name       = var.project_name
   environment        = var.environment
-  vpc_id             = module.vpc.vpc_id
   private_subnet_ids = module.vpc.private_subnet_ids
   ecs_security_group_id = module.ecs.security_group_id
 }
@@ -113,6 +112,8 @@ module "codedeploy" {
   alb_listener_arn         = module.ecs.alb_listener_arn
   product_target_group_arn = module.ecs.product_target_group_arn
   order_target_group_arn   = module.ecs.order_target_group_arn
+  product_target_group_green_arn = module.ecs.product_target_group_green_arn
+  order_target_group_green_arn   = module.ecs.order_target_group_green_arn
 }
 
 module "xray" {

@@ -68,7 +68,7 @@ resource "aws_codedeploy_deployment_group" "product" {
         name = split("/", var.product_target_group_arn)[1]
       }
       target_group {
-        name = split("/", var.product_target_group_arn)[1]
+        name = split("/", var.product_target_group_green_arn)[1]
       }
     }
   }
@@ -125,7 +125,7 @@ resource "aws_codedeploy_deployment_group" "order" {
         name = split("/", var.order_target_group_arn)[1]
       }
       target_group {
-        name = split("/", var.order_target_group_arn)[1]
+        name = split("/", var.order_target_group_green_arn)[1]
       }
     }
   }
