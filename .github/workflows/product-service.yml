@@ -57,9 +57,10 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          APPSPEC_CONTENT=$(cat services/product/appspec.yml | python3 -c "import sys,json; print(json.dumps(sys.stdin.read()))")
           aws deploy create-deployment \
             --application-name kazu-ec-dev-product \
             --deployment-group-name kazu-ec-dev-product-dg \
             --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
-            --revision revisionType=AppSpecContent,appSpecContent={content="$(cat services/product/appspec.yml)"} \
+            --revision '{"revisionType":"AppSpecContent","appSpecContent":{"content":'"$APPSPEC_CONTENT"'}}' \
             --description "Deploy $IMAGE_TAG"
