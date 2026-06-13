@@ -19,3 +19,8 @@ variable "private_subnet_ids" {
   type        = list(string)
 }
 
+variable "alb_arn" {
+  description = "ALBのARN"
+  type        = string
+}
+

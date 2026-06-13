@@ -76,6 +76,7 @@ module "api_gateway" {
   environment        = var.environment
   private_subnet_ids = module.vpc.private_subnet_ids
   ecs_security_group_id = module.ecs.security_group_id
+  alb_arn               = module.ecs.alb_arn
 }
 
 # module "lambda" {
