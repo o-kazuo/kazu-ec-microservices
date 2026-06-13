@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'services/notification/**'
+  workflow_dispatch:
 
 env:
   AWS_REGION: ap-northeast-1
