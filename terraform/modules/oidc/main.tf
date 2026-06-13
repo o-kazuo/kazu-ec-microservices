@@ -80,7 +80,8 @@ resource "aws_iam_role_policy" "github_actions" {
           "codedeploy:CreateDeployment",
           "codedeploy:GetDeployment",
           "codedeploy:GetDeploymentConfig",
-          "codedeploy:RegisterApplicationRevision"
+          "codedeploy:RegisterApplicationRevision",
+          "codedeploy:GetApplicationRevision"
         ]
         Resource = "*"
       },

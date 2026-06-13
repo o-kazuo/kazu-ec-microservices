@@ -79,15 +79,14 @@ module "api_gateway" {
   alb_listener_arn      = module.ecs.alb_listener_arn
 }
 
-# module "lambda" {
-#   source = "../../modules/lambda"
-#
-#   project_name       = var.project_name
-#   environment        = var.environment
-#   sqs_queue_arn      = module.sqs.queue_arn
-#   dynamodb_table_arn = module.dynamodb.notification_history_table_arn
-#   ecr_image_uri      = "${module.ecr.repository_urls["notification"]}:latest"
-# }
+module "lambda" {
+  source = "../../modules/lambda"
+  project_name       = var.project_name
+  environment        = var.environment
+  sqs_queue_arn      = module.sqs.queue_arn
+  dynamodb_table_arn = module.dynamodb.notification_history_table_arn
+  ecr_image_uri      = "${module.ecr.repository_urls["notification"]}:latest"
+}
 
 module "cloudwatch" {
   source = "../../modules/cloudwatch"
