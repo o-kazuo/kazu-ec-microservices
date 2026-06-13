@@ -61,4 +61,5 @@ jobs:
             --application-name kazu-ec-dev-product \
             --deployment-group-name kazu-ec-dev-product-dg \
             --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
+            --revision revisionType=AppSpecContent,appSpecContent={content="$(cat services/product/appspec.yml)"} \
             --description "Deploy $IMAGE_TAG"
