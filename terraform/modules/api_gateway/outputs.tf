@@ -1,24 +1,25 @@
 output "api_id" {
-  description = "REST API ID"
-  value       = aws_api_gateway_rest_api.main.id
+  description = "HTTP API ID"
+  value       = aws_apigatewayv2_api.main.id
 }
 
-output "api_arn" {
-  description = "REST APIのARN"
-  value       = aws_api_gateway_rest_api.main.arn
+output "api_endpoint" {
+  description = "HTTPAPIのエンドポイントURL"
+  value       = aws_apigatewayv2_api.main.api_endpoint
 }
 
 output "stage_arn" {
   description = "ステージのARN"
-  value       = "arn:aws:execute-api:ap-northeast-1:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.main.id}/${var.environment}"
+  value       = aws_apigatewayv2_stage.main.arn
 }
 
 output "invoke_url" {
-  description = "APIのエンドポイントURL"
-  value       = aws_api_gateway_stage.main.invoke_url
+  description = "APIの呼び出しURL"
+  value       = "${aws_apigatewayv2_api.main.api_endpoint}/${var.environment}"
 }
 
 output "vpc_link_id" {
   description = "VPC Link ID"
-  value       = aws_api_gateway_vpc_link.main.id
+  value       = aws_apigatewayv2_vpc_link.main.id
 }
+

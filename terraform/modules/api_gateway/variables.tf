@@ -8,9 +8,8 @@ variable "environment" {
   type        = string
 }
 
-# これはVPC LINKのために必要
 variable "ecs_security_group_id" {
-  description = "ECSセキュリティグループID"
+  description = "ECSセキュリティグループID（VPC Linkが使用）"
   type        = string
 }
 
@@ -19,8 +18,8 @@ variable "private_subnet_ids" {
   type        = list(string)
 }
 
-variable "alb_arn" {
-  description = "ALBのARN"
+variable "alb_listener_arn" {
+  description = "ALBリスナーのARN（Integrationのuri）"
   type        = string
 }
 

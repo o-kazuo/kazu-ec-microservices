@@ -89,6 +89,7 @@ resource "random_password" "db" {
 # パスワードをSecrets Managerに保存
 resource "aws_secretsmanager_secret" "db" {
   name = "${var.project_name}-${var.environment}-db-password"
+  recovery_window_in_days = 0  # ← これを追加（即時削除）本番環境では削除
 
   tags = {
     Name        = "${var.project_name}-${var.environment}-db-password"

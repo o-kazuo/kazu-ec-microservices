@@ -76,7 +76,7 @@ module "api_gateway" {
   environment        = var.environment
   private_subnet_ids = module.vpc.private_subnet_ids
   ecs_security_group_id = module.ecs.security_group_id
-  alb_arn               = module.ecs.alb_arn
+  alb_listener_arn      = module.ecs.alb_listener_arn
 }
 
 # module "lambda" {
@@ -124,9 +124,9 @@ module "xray" {
   environment  = var.environment
 }
 
-# WAF → API Gateway紐付け(WAFをAPI Gatewayにassociationする)
+# WAF → ALB紐付け
 resource "aws_wafv2_web_acl_association" "main" {
-  resource_arn = module.api_gateway.stage_arn
+  resource_arn = module.ecs.alb_arn
   web_acl_arn  = module.waf.web_acl_arn
 }
 
